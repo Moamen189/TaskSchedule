@@ -22,7 +22,15 @@ namespace TaskSchedule
 
                 Console.WriteLine($"Process Name {CurrentProcess.ProcessName} Remain Burst Time {CurrentProcess.RemainBurstTime} ");
                 CurrentProcess.RemainBurstTime--;
+                if (CurrentProcess.RemainBurstTime == 0)
+                {
+                    if (ProcessAlgorithm.WaitingProcess.Count > 0)
+                    {
+                        CurrentProcess = ProcessAlgorithm.IncomingQueue(CurrentProcess);
+                    }
+                }
 
+            }
                 nTimeIndex++;
                 CurrentProcess = ProcessAlgorithm.IncomingProcess(CurrentProcess , nTimeIndex);
 
