@@ -46,9 +46,20 @@ namespace TaskSchedule.BL
             }
         }
 
-        public Process IncomingProcess()
+        public Process IncomingProcess(Process CurrentProcess)
         {
-            throw new NotImplementedException();
+            int miniBurstTime = WaitingProcess.Min(a => a.BurstTime);
+            Process MyProcess = WaitingProcess.Where(a => a.BurstTime == miniBurstTime).FirstOrDefault();
+            if (CurrentProcess.BurstTime < MyProcess.BurstTime)
+            {
+              
+                return CurrentProcess;
+            }else
+            {
+                WaitingProcess.Remove(MyProcess);
+                WaitingProcess.Add(CurrentProcess);
+                return MyProcess;
+            }
         }
     }
 }
