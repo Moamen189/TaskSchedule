@@ -12,17 +12,19 @@ namespace TaskSchedule.BL
         {
             MainProcess = new List<Process>();
             WaitingProcess = new List<Process>();
-
+            EndedProcess = new List<Process>();
         }
 
         public SchedualProcesess(List<Process> mainProcess)
         {
             MainProcess = mainProcess;
             WaitingProcess= new List<Process>();
+            EndedProcess = new List<Process>();
 
         }
         public List<Process> MainProcess { get; set; }
         public List<Process> WaitingProcess { get; set; }
+        public List<Process> EndedProcess { get; set; }
 
         public Process IncomingProcess(Process CurrentProcess, int TimeLineProcess)
         {
@@ -33,6 +35,8 @@ namespace TaskSchedule.BL
             }
             else
             {
+                if(CurrentProcess == null || CurrentProcess.RemainBurstTime >= 0)
+                    return MyProcess;
                 if(CurrentProcess.RemainBurstTime < MyProcess.RemainBurstTime)
                 {
                     WaitingProcess.Add(MyProcess);
@@ -58,6 +62,8 @@ namespace TaskSchedule.BL
         {
             int miniRemainBurstTime = WaitingProcess.Min(a => a.RemainBurstTime);
             Process MyProcess = WaitingProcess.Where(a => a.RemainBurstTime == miniRemainBurstTime).FirstOrDefault();
+            if (CurrentProcess == null || CurrentProcess.RemainBurstTime ==0)
+                return MyProcess;
             if (CurrentProcess.RemainBurstTime < MyProcess.RemainBurstTime)
             {
               

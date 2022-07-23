@@ -10,6 +10,8 @@ namespace TaskSchedule.BL
     {
         public List<Process> MainProcess { get; set; }
         public List<Process> WaitingProcess { get; set; }
+        public List<Process> EndedProcess { get; set; }
+
 
         public Process IncomingProcess(Process CurrentProcess, int TimeLineProcess);
         public Process IncomingProcess();
