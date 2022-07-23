@@ -31,17 +31,17 @@ namespace TaskSchedule
                 }
 
             }
-                nTimeIndex++;
-                CurrentProcess = ProcessAlgorithm.IncomingProcess(CurrentProcess , nTimeIndex);
+            nTimeIndex++;
+            CurrentProcess = ProcessAlgorithm.IncomingProcess(CurrentProcess, nTimeIndex);
 
-                if(ProcessAlgorithm.WaitingProcess.Count > 0)
-                {
-                    CurrentProcess = ProcessAlgorithm.IncomingQueue(CurrentProcess);
-                }
+            if (ProcessAlgorithm.WaitingProcess.Count > 0)
+            {
+                CurrentProcess = ProcessAlgorithm.IncomingQueue(CurrentProcess);
             }
-            //string NewString = JsonConvert.SerializeObject(LstProcesses);
-            //File.WriteAllText("Process.txt", NewString);
-            Console.ReadKey();
         }
+        //string NewString = JsonConvert.SerializeObject(LstProcesses);
+        //File.WriteAllText("Process.txt", NewString);
     }
+        
+    
 }
