@@ -33,7 +33,7 @@ namespace TaskSchedule.BL
             }
             else
             {
-                if(CurrentProcess.BurstTime < MyProcess.BurstTime)
+                if(CurrentProcess.RemainBurstTime < MyProcess.RemainBurstTime)
                 {
                     WaitingProcess.Add(MyProcess);
                     return CurrentProcess;
@@ -46,11 +46,19 @@ namespace TaskSchedule.BL
             }
         }
 
-        public Process IncomingProcess(Process CurrentProcess)
+
+        public Process IncomingProcess()
         {
-            int miniBurstTime = WaitingProcess.Min(a => a.BurstTime);
-            Process MyProcess = WaitingProcess.Where(a => a.BurstTime == miniBurstTime).FirstOrDefault();
-            if (CurrentProcess.BurstTime < MyProcess.BurstTime)
+            return  MainProcess.FirstOrDefault();
+           
+            
+        }
+
+        public Process IncomingQueue(Process CurrentProcess)
+        {
+            int miniRemainBurstTime = WaitingProcess.Min(a => a.RemainBurstTime);
+            Process MyProcess = WaitingProcess.Where(a => a.RemainBurstTime == miniRemainBurstTime).FirstOrDefault();
+            if (CurrentProcess.RemainBurstTime < MyProcess.RemainBurstTime)
             {
               
                 return CurrentProcess;

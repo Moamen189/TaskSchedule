@@ -8,9 +8,15 @@ namespace TaskSchedule.BL
 {
     public class Process
     {
-        public String ProcessName { get; set; }
+        public Process()
+        {
+            RemainBurstTime = BurstTime;
+        }
+        public string ProcessName { get; set; }
         public int ArrivalTime { get; set; }
 
         public int BurstTime { get; set; }
+        public int RemainBurstTime { get; set; }
+
     }
 }

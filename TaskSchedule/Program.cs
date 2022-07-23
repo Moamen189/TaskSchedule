@@ -13,8 +13,26 @@ namespace TaskSchedule
             //Console.WriteLine("Hello World!");
             string JsonString = File.ReadAllText("Process.json");
             List<Process> LstProcesses = JsonConvert.DeserializeObject<List<Process>>(JsonString);
-            string NewString = JsonConvert.SerializeObject(LstProcesses);
-            File.WriteAllText("Process.txt", NewString);
+            ISchedualProcesess ProcessAlgorithm = new SchedualProcesess(LstProcesses);
+            int nTimeIndex = 0;
+            Process CurrentProcess = ProcessAlgorithm.IncomingProcess();
+
+            while (true)
+            {
+
+                Console.WriteLine($"Process Name {CurrentProcess.ProcessName} Remain Burst Time {CurrentProcess.RemainBurstTime} ");
+                CurrentProcess.RemainBurstTime--;
+
+                nTimeIndex++;
+                CurrentProcess = ProcessAlgorithm.IncomingProcess(CurrentProcess , nTimeIndex);
+
+                if(ProcessAlgorithm.WaitingProcess.Count > 0)
+                {
+                    CurrentProcess = ProcessAlgorithm.IncomingQueue(CurrentProcess);
+                }
+            }
+            //string NewString = JsonConvert.SerializeObject(LstProcesses);
+            //File.WriteAllText("Process.txt", NewString);
             Console.ReadKey();
         }
     }

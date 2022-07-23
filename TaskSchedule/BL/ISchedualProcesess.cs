@@ -12,6 +12,8 @@ namespace TaskSchedule.BL
         public List<Process> WaitingProcess { get; set; }
 
         public Process IncomingProcess(Process CurrentProcess, int TimeLineProcess);
-        public Process IncomingProcess(Process CurrentProcess);
+        public Process IncomingProcess();
+
+        public Process IncomingQueue(Process CurrentProcess);
     }
 }
